@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">PaLuego</string>
     <string name="new_account_text">Create new account.</string>
+    <string name="birth_date">DATE OF BIRTH</string>
+    <string name="password">PASSWORD</string>
+    <string name="email">EMAIL</string>
+    <string name="name">NAME</string>
+    <string name="no_visible_field">********</string>
+    <string name="select">Select</string>
+    <string name="mail_example">mail@mail.com</string>
+    <string name="name_lcase">Name</string>
+    <string name="sign_up">Sign up</string>
 </resources>

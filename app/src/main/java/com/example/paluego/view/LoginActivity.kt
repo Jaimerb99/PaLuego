@@ -1,11 +1,12 @@
-package com.example.paluego
+package com.example.paluego.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.paluego.R
 
-class SplashActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(R.layout.activity_login)
     }
 }

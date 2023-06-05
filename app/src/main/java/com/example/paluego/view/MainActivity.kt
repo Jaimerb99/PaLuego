@@ -1,7 +1,8 @@
-package com.example.paluego
+package com.example.paluego.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.paluego.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
