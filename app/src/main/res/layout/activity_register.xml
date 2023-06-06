@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/special_red"
     android:orientation="vertical"
-    tools:context=".view.MainActivity">
+    tools:context=".view.activities.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,22 +43,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:background="@drawable/fondo_borde_izq_redondeado">
+        android:background="@drawable/bg_white_rounded_left_edge">
 
         <Button
             android:id="@+id/btnSignUp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/special_red"
             android:text="@string/sign_up"
+            android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightR"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeftR"
             app:layout_constraintTop_toBottomOf="@+id/editTextDate"
             app:rippleColor="@color/special_red" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txtLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/new_account_text"
@@ -74,43 +75,44 @@
             android:id="@+id/editTextTextPersonName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittexts_background"
+            android:background="@drawable/bg_edittexts_background"
             android:ems="10"
-            android:hint="@string/name_lcase"
             android:inputType="textPersonName"
-
+            android:hint="@string/name_textfield"
+            tools:text = "Aitor Tilla"
             android:paddingStart="10dp"
             android:paddingVertical="7dp"
             android:paddingEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRightR"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeftR"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/txtLogin"
             app:layout_constraintVertical_bias="0.13" />
 
         <EditText
             android:id="@+id/editTextTextEmailAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittexts_background"
+            android:background="@drawable/bg_edittexts_background"
             android:ems="10"
             android:hint="@string/mail_example"
             android:inputType="textEmailAddress"
 
-            android:paddingStart="10dp"
             android:paddingVertical="7dp"
+            android:paddingStart="10dp"
             android:paddingEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-            app:layout_constraintVertical_bias="0.100000024" />
+            app:layout_constraintVertical_bias="0.099" />
 
         <EditText
             android:id="@+id/editTextDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittexts_background"
+            android:background="@drawable/bg_edittexts_background"
             android:ems="10"
             android:hint="@string/select"
             android:inputType="date"
@@ -130,7 +132,7 @@
             android:id="@+id/editTextTextPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittexts_background"
+            android:background="@drawable/bg_edittexts_background"
             android:ems="10"
             android:hint="@string/no_visible_field"
             android:inputType="textPassword"
