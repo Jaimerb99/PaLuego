@@ -1,4 +1,4 @@
-package com.example.paluego.view
+package com.example.paluego.view.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,8 +19,8 @@ class SplashActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             withContext(Dispatchers.IO) {
                 Thread.sleep(3000)
-                val intento = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(intento)
+
+                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
 
                 //must be here to control the back button and not showing it again
                 finish()
