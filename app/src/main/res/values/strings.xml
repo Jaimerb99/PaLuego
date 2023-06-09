@@ -13,4 +13,9 @@
     <string name="login">Login</string>
     <string name="name_textfield">Introduce your name</string>
     <string name="log_in">Log In</string>
+    <string name="clear">Clear</string>
+    <string name="notes">Notes</string>
+    <string name="to_be_written">To be written...</string>
+    <string name="content">Content</string>
+    <string name="voice_record">Voice Record</string>
 </resources>

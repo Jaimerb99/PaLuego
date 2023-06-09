@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.signUpText.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+            startActivity(Intent(this@LoginActivity, SingleNoteActivity::class.java))
         }
     }
 }

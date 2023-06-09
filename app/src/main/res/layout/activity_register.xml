@@ -14,29 +14,25 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--            android:id="@+id/floatingActionButton"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_gravity="center"-->
-        <!--            android:layout_marginStart="20dp"-->
-        <!--            android:clickable="true"-->
-        <!--            app:backgroundTint="@android:color/transparent"-->
-        <!--            app:backgroundTintMode="multiply"-->
-        <!--            app:rippleColor="@android:color/transparent"-->
-        <!--            app:srcCompat="@android:drawable/ic_delete"-->
-        <!--            tools:ignore="SpeakableTextPresentCheck" />-->
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginStart="30dp"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/back_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_round_back_arrow_24"
+            tools:ignore="NestedWeights,SpeakableTextPresentCheck"
+            android:padding="25dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="7"/>
+
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,19 +40,6 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         android:background="@drawable/bg_white_rounded_left_edge">
-
-        <Button
-            android:id="@+id/btnSignUp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/special_red"
-            android:text="@string/sign_up"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineRightR"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeftR"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate"
-            app:rippleColor="@color/special_red" />
 
         <TextView
             android:id="@+id/txtLogin"
@@ -77,17 +60,17 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittexts_background"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="@string/name_textfield"
-            tools:text = "Aitor Tilla"
+            android:inputType="textPersonName"
+            android:paddingVertical="10dp"
             android:paddingStart="10dp"
-            android:paddingVertical="7dp"
             android:paddingEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRightR"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeftR"
             app:layout_constraintTop_toBottomOf="@+id/txtLogin"
-            app:layout_constraintVertical_bias="0.13" />
+            app:layout_constraintVertical_bias="0.13"
+            tools:text="Aitor Tilla" />
 
         <EditText
             android:id="@+id/editTextTextEmailAddress"
@@ -98,7 +81,7 @@
             android:hint="@string/mail_example"
             android:inputType="textEmailAddress"
 
-            android:paddingVertical="7dp"
+            android:paddingVertical="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -117,8 +100,8 @@
             android:hint="@string/select"
             android:inputType="date"
 
+            android:paddingVertical="10dp"
             android:paddingStart="10dp"
-            android:paddingVertical="7dp"
             android:paddingEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
@@ -137,8 +120,8 @@
             android:hint="@string/no_visible_field"
             android:inputType="textPassword"
 
+            android:paddingVertical="10dp"
             android:paddingStart="10dp"
-            android:paddingVertical="7dp"
             android:paddingEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
@@ -153,6 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name"
+            android:fontFamily="monospace"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
             app:layout_constraintHorizontal_bias="0.02"
@@ -163,6 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email"
+            android:fontFamily="monospace"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
             app:layout_constraintHorizontal_bias="0.02"
@@ -173,6 +158,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password"
+            android:fontFamily="monospace"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
             app:layout_constraintHorizontal_bias="0.02"
@@ -183,6 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/birth_date"
+            android:fontFamily="monospace"
             app:layout_constraintBottom_toTopOf="@+id/editTextDate"
             app:layout_constraintEnd_toEndOf="@+id/editTextDate"
             app:layout_constraintHorizontal_bias="0.02"
@@ -193,14 +180,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.2" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRightR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
+            app:layout_constraintGuide_percent="0.8" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/special_red"
+            android:text="@string/sign_up"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightR"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeftR"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate"
+            app:layout_constraintVertical_bias="0.3"
+            app:rippleColor="@color/special_red" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
