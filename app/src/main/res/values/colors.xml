@@ -11,4 +11,6 @@
     <color name="special_red">#A20000</color>
     <color name="dark_red">#830000</color>
     <color name="light_grey">#9E9E9E</color>
+    <color name="lighter_grey">#D9D9D9</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
