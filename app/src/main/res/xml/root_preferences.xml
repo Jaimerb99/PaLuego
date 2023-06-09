@@ -1,0 +1,64 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/notes_settings"
+        app:icon="@drawable/ic_round_note_24">
+
+<!--        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true" />-->
+
+        <ListPreference
+            app:entries="@array/font_size_entries"
+            app:entryValues="@array/font_size_values"
+            app:defaultValue="Medium"
+            app:key="font_size"
+            app:title="@string/default_font_size"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/sync_header"
+        app:icon="@drawable/ic_round_sync_24">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:defaultValue="true"
+            app:title="@string/synchronize_automatically" />
+
+<!--        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />-->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/notifications"
+        app:icon="@drawable/ic_round_notifications_24">
+
+        <SwitchPreference
+            app:key="unmute"
+            app:defaultValue="true"
+            app:title="@string/disable_volume"
+            app:summaryOff="@string/muted"
+            app:summaryOn="@string/volume_on"/>
+
+        <SeekBarPreference
+            app:dependency="unmute"
+            app:key="volume"
+            app:title="@string/volume"
+            app:showSeekBarValue="true"
+            app:defaultValue="50"/>
+
+        <SwitchPreferenceCompat
+            app:key="notifications"
+            app:defaultValue="true"
+            app:summaryOff="@string/mute_notifications"
+            app:summaryOn="@string/unmute_notifications"
+            app:title="@string/allow_notifications" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

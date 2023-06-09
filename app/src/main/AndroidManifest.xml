@@ -14,6 +14,10 @@
         android:theme="@style/Theme.PaLuego"
         tools:targetApi="31">
         <activity
+            android:name=".view.activities.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
+        <activity
             android:name=".view.activities.SingleNoteActivity"
             android:exported="false" />
         <activity
