@@ -1,9 +1,14 @@
 package com.example.paluego.view.activities
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.example.paluego.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
+
 
 
 class LoginActivity : AppCompatActivity() {
@@ -17,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogIn.setOnClickListener {
             if( binding.editTextTextPersonNameL.text.toString().trim().isNotEmpty() && binding.editTextTextPersonNameL.text.toString().trim().isNotEmpty()){
-                //TODO AUTH
+                login()
             }else{
                 //TODO to be revised, password textfield doesnt work as a normal textfield
                 if (binding.editTextTextPersonNameL.text.toString().isEmpty()) binding.editTextTextPersonNameL.error = "You must provide your name"
@@ -26,7 +31,25 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.signUpText.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, SettingsActivity::class.java))
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
+    }
+
+    private fun login() {
+        val auth = FirebaseAuth.getInstance()
+        auth.signInWithEmailAndPassword(binding.editTextTextPersonNameL.text.toString(), binding.editTextTextPasswordL.text.toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("JRB", "signInWithEmail:success")
+                    val user = auth.currentUser
+                    startActivity(Intent(this@LoginActivity, NotesActivity::class.java))
+                    finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("JRB", "signInWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext,"Authentication failed.", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

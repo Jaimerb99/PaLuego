@@ -12,7 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:weightSum="7"
         android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/ic_logout_24"
+            tools:ignore="NestedWeights" />
 
         <TextView
             android:id="@+id/txtNotes"
@@ -21,21 +31,21 @@
             android:layout_weight="4"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:paddingEnd="70dp"
             android:text="@string/notes"
             android:textColor="#FFFFFF"
             android:textSize="36sp"
             android:textStyle="bold"
             tools:ignore="NestedWeights,RtlSymmetry" />
 
-        <ImageView
-            android:id="@+id/settingsIcon"
+        <ImageButton
+            android:id="@+id/btnSettings"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingEnd="20dp"
+            android:layout_weight="2"
+
             android:paddingBottom="10dp"
             app:srcCompat="@drawable/ic_settings_suggest_24"
+            android:background="@color/transparent"
             tools:ignore="RtlSymmetry" />
 
     </LinearLayout>
@@ -60,7 +70,7 @@
             app:fabSize="auto"
             android:focusable="true"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -86,6 +96,7 @@
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="0dp"
+                android:focusable="false"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:theme="@style/SearchViewStyle"
@@ -113,10 +124,10 @@
             android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchLayout"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_note" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
