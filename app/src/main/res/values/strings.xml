@@ -34,6 +34,10 @@
     <string name="mute_notifications">You will no longer receive notifications</string>
     <string name="unmute_notifications">You can receive notifications</string>
     <string name="allow_notifications">Allow notifications</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+
 
 
 </resources>

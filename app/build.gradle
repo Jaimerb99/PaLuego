@@ -45,10 +45,13 @@ dependencies {
 
     //Firebase
     implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
+    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation 'com.google.firebase:firebase-firestore:24.6.1'
 
     //Expandable TextViews
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

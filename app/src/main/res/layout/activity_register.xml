@@ -16,7 +16,7 @@
 
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btnBack"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
