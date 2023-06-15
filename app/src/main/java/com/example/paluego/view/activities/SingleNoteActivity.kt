@@ -5,15 +5,23 @@ import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.example.paluego.databinding.ActivitySingleNoteBinding
 import com.example.paluego.model.AppPreferences
 import com.example.paluego.model.Constant
+import com.example.paluego.model.Constant.COLLECTION_NOTE
+import com.example.paluego.model.Constant.COLLECTION_NOTES
 import com.example.paluego.model.Constant.REQUEST_PERMISSION_RECORD_AUDIO
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
 import java.io.File
+import java.io.IOException
 
 class SingleNoteActivity : AppCompatActivity() {
 
@@ -41,7 +49,7 @@ class SingleNoteActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_PERMISSION_RECORD_AUDIO
                 )
             } else {
-//                toggleRecording()
+              //  toggleRecording()
             }
         }
 
@@ -61,19 +69,62 @@ class SingleNoteActivity : AppCompatActivity() {
         super.onResume()
         // Inits the count again
         handler.postDelayed(autoSaveRunnable, Constant.AUTOSAVE_INTERVAL)
+        saveChanges()
     }
 
     override fun onPause() {
         super.onPause()
         // Pause the callback when the activity is on resume
         handler.removeCallbacks(autoSaveRunnable)
+        saveChanges()
     }
 
     private fun saveChanges() {
-        db.collection(Constant.COLLECTION_USER).document(AppPreferences.getString(this, "id", "")).set{
-
-        }
+        val id = AppPreferences.getString(this, "id", "")
+        db.collection(COLLECTION_NOTES).document(id).set(hashMapOf("note_id" to giveId()))
+        db.collection(COLLECTION_NOTES).document(id).collection(COLLECTION_NOTE).document().set(
+            hashMapOf("id" to AppPreferences.getString(baseContext, "id", ""),
+            "title" to binding.editTextNoteTitle.text.toString(),
+            "content" to binding.editTextNoteContent.text.toString(),
+            //"audio" to outputFile
+        ), SetOptions.merge()  //In every case data is not overwritten, is updated and merged
+        ).addOnSuccessListener {
+            Log.d("JRB", "Datos bien guardados")
+        }.addOnFailureListener { Log.d("JRB", "Datos mal guardados") }
     }
+
+    private fun existingIndex(): Boolean {
+        var exist = false
+        db.collection(COLLECTION_NOTES).document(AppPreferences.getString(this, "id", "")).get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists() && documentSnapshot.data.isNullOrEmpty()) {
+                    //The document is empty
+                    exist = false
+                    Log.d("JRB", "El documento está vacío")
+                } else {
+                    exist = true
+                    // The document has fields
+                    Log.d("JRB", "El documento contiene campos")
+                }
+            }
+            .addOnFailureListener { exception ->
+                //Probably the document doesn't exist
+                exist = false
+                Log.d("JRB", "Error al obtener el documento: ${exception.message}")
+            }
+        return exist
+    }
+
+    private fun giveId(): String {
+        var id = "First"
+        if(existingIndex()){
+            val collectionRef = db.collection("test") // Fake collection in order to take a unique id
+            val documentRef = collectionRef.document()
+            id =  documentRef.id
+        }
+        return  id
+    }
+
 
     /*private fun toggleRecording() {
         if (::mediaRecorder.isInitialized) {
@@ -84,8 +135,7 @@ class SingleNoteActivity : AppCompatActivity() {
     }
 
     private fun startRecording() {
-        outputFile =
-            File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "audio.3gp")
+        outputFile =  File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "audio.3gp")
 
         mediaRecorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -126,13 +176,14 @@ class SingleNoteActivity : AppCompatActivity() {
                 Log.d("JRB", "--------------------------------")
             }
     }
-
+*/
     override fun onDestroy() {
         super.onDestroy()
+        saveChanges()
         if (::mediaRecorder.isInitialized) {
             mediaRecorder.release()
         }
-    }*/
+    }
 
 
 }
