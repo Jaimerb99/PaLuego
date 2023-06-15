@@ -27,15 +27,19 @@
             tools:ignore="SpeakableTextPresentCheck"
             android:padding="25dp"/>
 
-        <TextView
+        <EditText
+            android:id="@+id/editTextNoteTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
             android:textSize="35sp"
             android:textColor="@color/white"
             android:paddingStart="20dp"
+            android:hint="Title"
+            android:background= "@color/transparent"
             tools:text="Note title"
             android:maxLines="2"
+            android:maxLength="20"
             android:textStyle="bold"
             android:gravity="center_vertical"/>
 

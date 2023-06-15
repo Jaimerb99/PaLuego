@@ -12,17 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:weightSum="7"
+        android:weightSum="6"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/btnLogOut"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            app:srcCompat="@drawable/ic_logout_24"
-            tools:ignore="NestedWeights" />
+
 
         <TextView
             android:id="@+id/txtNotes"
@@ -56,6 +49,8 @@
         android:layout_weight="5"
         android:background="@drawable/bg_white_rounded_left_edge">
 
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAddNote"
             android:layout_width="wrap_content"
@@ -71,6 +66,24 @@
             android:focusable="true"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="50dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_logout_24"
+            android:rotation="180"
+            android:backgroundTint="@color/special_red"
+            app:tint="@color/white"
+            app:maxImageSize="40dp"
+            app:fabSize="auto"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="50dp" />
+
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -129,6 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/searchLayout"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_note" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

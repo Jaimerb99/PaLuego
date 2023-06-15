@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.paluego.databinding.ActivityRegisterBinding
 import com.example.paluego.model.AppPreferences
+import com.example.paluego.model.Constant.COLLECTION_USER
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -30,10 +31,9 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnSignUp.setOnClickListener {
-            //TODO Check the fields and do the registry
+
             dismissKeyboard(it.windowToken)
             if( binding.editTextTextPersonName.text.toString().trim().isNotEmpty() && binding.editTextTextPersonName.text.toString().trim().isNotEmpty()){
-                //TODO AUTH
                 createUser()
             }else{
                 //TODO to be revised, password textfield doesnt work as a normal textfield
@@ -64,7 +64,7 @@ class RegisterActivity : AppCompatActivity() {
                     //Fields validation
                     if (task.exception is FirebaseAuthException) {
                         when ((task.exception as FirebaseAuthException).errorCode) {
-                            "ERROR_WRONG_PASSWORD" -> {
+                            "ERROR_WEAK_PASSWORD" -> {
                                 binding.editTextTextPassword.error = "Password must have at least 6 characters"
                             }
                             "ERROR_EMAIL_ALREADY_IN_USE" -> {
@@ -87,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun saveUserOnFirebase() {
-        db.collection("user").document(binding.editTextTextEmailAddress.text.toString()).set(
+        db.collection(COLLECTION_USER).document(binding.editTextTextEmailAddress.text.toString()).set(
             hashMapOf("name" to binding.editTextTextPersonName.text.toString(),
                 "email" to binding.editTextTextEmailAddress.text.toString(),
                 "birth_date" to binding.editTextDate.text.toString()

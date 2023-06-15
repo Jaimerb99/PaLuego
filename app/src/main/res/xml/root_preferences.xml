@@ -1,5 +1,13 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory>
+        <EditTextPreference
+            app:title="Settings"
+            android:selectable="false"
+            android:layout="@layout/setting_title_edittext"
+            />
+    </PreferenceCategory>
     <PreferenceCategory app:title="@string/notes_settings"
         app:icon="@drawable/ic_round_note_24">
 

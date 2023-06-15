@@ -15,6 +15,7 @@ object AppPreferences {
         return sharedPreferences.getString(key, defaultValue) ?: defaultValue
     }
 
+
     fun getBoolean(context: Context, key: String, defaultValue: Boolean): Boolean {
         val sharedPreferences = getSharedPreferences(context)
         return sharedPreferences.getBoolean(key, defaultValue)

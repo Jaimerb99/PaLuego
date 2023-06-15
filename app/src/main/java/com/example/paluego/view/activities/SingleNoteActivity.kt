@@ -5,22 +5,26 @@ import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
+import android.os.Handler
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import com.example.paluego.databinding.ActivitySingleNoteBinding
+import com.example.paluego.model.AppPreferences
+import com.example.paluego.model.Constant
 import com.example.paluego.model.Constant.REQUEST_PERMISSION_RECORD_AUDIO
-import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
-import java.io.IOException
 
 class SingleNoteActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivitySingleNoteBinding.inflate(layoutInflater)
     }
+
+
+    private lateinit var handler: Handler
+    private lateinit var autoSaveRunnable: Runnable
+    private val db = FirebaseFirestore.getInstance()
 
     private lateinit var mediaRecorder: MediaRecorder
     private lateinit var outputFile: File
@@ -37,12 +41,41 @@ class SingleNoteActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_PERMISSION_RECORD_AUDIO
                 )
             } else {
-                toggleRecording()
+//                toggleRecording()
             }
+        }
+
+        handler = Handler()
+        autoSaveRunnable = Runnable {
+            saveChanges()
+            handler.postDelayed(autoSaveRunnable, Constant.AUTOSAVE_INTERVAL)
+        }
+
+        binding.btnBack.setOnClickListener{
+            saveChanges()
+            finish()
         }
     }
 
-    private fun toggleRecording() {
+    override fun onResume() {
+        super.onResume()
+        // Inits the count again
+        handler.postDelayed(autoSaveRunnable, Constant.AUTOSAVE_INTERVAL)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Pause the callback when the activity is on resume
+        handler.removeCallbacks(autoSaveRunnable)
+    }
+
+    private fun saveChanges() {
+        db.collection(Constant.COLLECTION_USER).document(AppPreferences.getString(this, "id", "")).set{
+
+        }
+    }
+
+    /*private fun toggleRecording() {
         if (::mediaRecorder.isInitialized) {
             stopRecording()
         } else {
@@ -87,7 +120,7 @@ class SingleNoteActivity : AppCompatActivity() {
         audioRef.putFile(outputFile.toUri())
             .addOnSuccessListener {
                 Log.d("JRB", "++++++++++++++++++++++++++++++++")
-                outputFile.delete() // Elimina el archivo local después de subirlo a Firebase Storage
+                outputFile.delete()
             }
             .addOnFailureListener {
                 Log.d("JRB", "--------------------------------")
@@ -99,7 +132,7 @@ class SingleNoteActivity : AppCompatActivity() {
         if (::mediaRecorder.isInitialized) {
             mediaRecorder.release()
         }
-    }
+    }*/
 
 
 }

@@ -7,8 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.paluego.databinding.ActivityLoginBinding
+import com.example.paluego.model.AppPreferences
 import com.google.firebase.auth.FirebaseAuth
-
+import com.google.gson.Gson
 
 
 class LoginActivity : AppCompatActivity() {
@@ -21,12 +22,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnLogIn.setOnClickListener {
-            if( binding.editTextTextPersonNameL.text.toString().trim().isNotEmpty() && binding.editTextTextPersonNameL.text.toString().trim().isNotEmpty()){
+            if( binding.editTextTextPersonNameL.text.toString().trim().isNotEmpty() && binding.editTextTextPasswordL.text.toString().trim().isNotEmpty()  ){
                 login()
             }else{
-                //TODO to be revised, password textfield doesnt work as a normal textfield
                 if (binding.editTextTextPersonNameL.text.toString().isEmpty()) binding.editTextTextPersonNameL.error = "You must provide your name"
-                if(binding.editTextTextPasswordL.text.toString().isNullOrEmpty()) binding.editTextTextPasswordL.error = "The password is needed to continue"
+                if(binding.editTextTextPasswordL.text.toString().isEmpty()) binding.editTextTextPasswordL.error = "The password is needed to continue"
             }
         }
 
@@ -36,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
+
         val auth = FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(binding.editTextTextPersonNameL.text.toString(), binding.editTextTextPasswordL.text.toString())
             .addOnCompleteListener(this) { task ->
@@ -43,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("JRB", "signInWithEmail:success")
                     val user = auth.currentUser
+                    AppPreferences.setString(baseContext, "id", user!!.uid)
                     startActivity(Intent(this@LoginActivity, NotesActivity::class.java))
                     finish()
                 } else {
