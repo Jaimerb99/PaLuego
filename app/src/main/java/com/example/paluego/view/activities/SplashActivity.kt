@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
                 val userId = AppPreferences.getString(baseContext,"id", "")
 
                 //Autologin
-                if(userId == auth.currentUser!!.uid){
+                if(AppPreferences.hasPreferences(baseContext) && userId == auth.currentUser!!.uid){
                     startActivity(Intent(this@SplashActivity, NotesActivity::class.java))
                 }else{
                     startActivity(Intent(this@SplashActivity, LoginActivity::class.java))

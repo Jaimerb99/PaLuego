@@ -45,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("JRB", "signInWithEmail:success")
                     val user = auth.currentUser
                     AppPreferences.setString(baseContext, "id", user!!.uid)
+                    AppPreferences.setString(baseContext, "email", binding.editTextTextPersonNameL.text.toString())
                     startActivity(Intent(this@LoginActivity, NotesActivity::class.java))
                     finish()
                 } else {

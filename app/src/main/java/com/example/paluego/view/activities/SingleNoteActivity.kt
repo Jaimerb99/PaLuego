@@ -17,6 +17,7 @@ import com.example.paluego.model.Constant
 import com.example.paluego.model.Constant.COLLECTION_NOTE
 import com.example.paluego.model.Constant.COLLECTION_NOTES
 import com.example.paluego.model.Constant.REQUEST_PERMISSION_RECORD_AUDIO
+import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
@@ -33,6 +34,7 @@ class SingleNoteActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private lateinit var autoSaveRunnable: Runnable
     private val db = FirebaseFirestore.getInstance()
+    private lateinit var noteId: String
 
     private lateinit var mediaRecorder: MediaRecorder
     private lateinit var outputFile: File
@@ -52,6 +54,8 @@ class SingleNoteActivity : AppCompatActivity() {
               //  toggleRecording()
             }
         }
+
+        noteId = giveId()
 
         handler = Handler()
         autoSaveRunnable = Runnable {
@@ -80,10 +84,8 @@ class SingleNoteActivity : AppCompatActivity() {
     }
 
     private fun saveChanges() {
-        val id = AppPreferences.getString(this, "id", "")
-        db.collection(COLLECTION_NOTES).document(id).set(hashMapOf("note_id" to giveId()))
-        db.collection(COLLECTION_NOTES).document(id).collection(COLLECTION_NOTE).document().set(
-            hashMapOf("id" to AppPreferences.getString(baseContext, "id", ""),
+        db.collection(COLLECTION_NOTES).document(noteId).set(
+            hashMapOf("user" to AppPreferences.getString(baseContext, "email", ""),
             "title" to binding.editTextNoteTitle.text.toString(),
             "content" to binding.editTextNoteContent.text.toString(),
             //"audio" to outputFile
@@ -93,9 +95,10 @@ class SingleNoteActivity : AppCompatActivity() {
         }.addOnFailureListener { Log.d("JRB", "Datos mal guardados") }
     }
 
-    private fun existingIndex(): Boolean {
+
+ /*   private fun existingIndex(): Boolean {
         var exist = false
-        db.collection(COLLECTION_NOTES).document(AppPreferences.getString(this, "id", "")).get()
+        db.collection(COLLECTION_NOTES).document(AppPreferences.getString(this, "email", "error")).get()
             .addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists() && documentSnapshot.data.isNullOrEmpty()) {
                     //The document is empty
@@ -113,16 +116,12 @@ class SingleNoteActivity : AppCompatActivity() {
                 Log.d("JRB", "Error al obtener el documento: ${exception.message}")
             }
         return exist
-    }
+    }*/
 
     private fun giveId(): String {
-        var id = "First"
-        if(existingIndex()){
-            val collectionRef = db.collection("test") // Fake collection in order to take a unique id
-            val documentRef = collectionRef.document()
-            id =  documentRef.id
-        }
-        return  id
+        val collectionRef = db.collection("test") // Fake collection in order to take a unique id
+        val documentRef = collectionRef.document()
+        return  documentRef.id
     }
 
 
