@@ -12,6 +12,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
     <string name="name_textfield">Introduce your name</string>
+    <string name="mail_textfield">Introduce your e-mail</string>
     <string name="log_in">Log In</string>
     <string name="clear">Clear</string>
     <string name="notes">Notes</string>

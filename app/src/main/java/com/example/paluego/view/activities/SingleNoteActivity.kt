@@ -42,6 +42,9 @@ class SingleNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.editTextNoteTitle.setText(intent.getStringExtra("title") ?: "")
+        binding.editTextNoteContent.setText(intent.getStringExtra("description") ?: "")
+
         binding.btnRecord.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     this,
@@ -51,7 +54,7 @@ class SingleNoteActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_PERMISSION_RECORD_AUDIO
                 )
             } else {
-              //  toggleRecording()
+                //  toggleRecording()
             }
         }
 
@@ -84,98 +87,40 @@ class SingleNoteActivity : AppCompatActivity() {
     }
 
     private fun saveChanges() {
-        db.collection(COLLECTION_NOTES).document(noteId).set(
-            hashMapOf("user" to AppPreferences.getString(baseContext, "email", ""),
-            "title" to binding.editTextNoteTitle.text.toString(),
-            "content" to binding.editTextNoteContent.text.toString(),
-            //"audio" to outputFile
-        ), SetOptions.merge()  //In every case data is not overwritten, is updated and merged
-        ).addOnSuccessListener {
-            Log.d("JRB", "Datos bien guardados")
-        }.addOnFailureListener { Log.d("JRB", "Datos mal guardados") }
+        val title = binding.editTextNoteTitle.text.toString()
+        val content = binding.editTextNoteContent.text.toString()
+        //TODO implentar audios
+        if (title.isNotEmpty() || content.isNotEmpty()) {
+            db.collection(COLLECTION_NOTES).document(noteId).set(
+                hashMapOf(
+                    "user" to AppPreferences.getString(baseContext, "email", ""),
+                    "id" to noteId,
+                    "title" to binding.editTextNoteTitle.text.toString(),
+                    "content" to binding.editTextNoteContent.text.toString(),
+                    //"audio" to outputFile
+                ),
+                SetOptions.merge()  //In every case data is not overwritten, is updated and merged
+            ).addOnSuccessListener {
+                Log.d("JRB", "Datos bien guardados")
+            }.addOnFailureListener { Log.d("JRB", "Datos mal guardados") }
+        }
     }
 
-
- /*   private fun existingIndex(): Boolean {
-        var exist = false
-        db.collection(COLLECTION_NOTES).document(AppPreferences.getString(this, "email", "error")).get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists() && documentSnapshot.data.isNullOrEmpty()) {
-                    //The document is empty
-                    exist = false
-                    Log.d("JRB", "El documento está vacío")
-                } else {
-                    exist = true
-                    // The document has fields
-                    Log.d("JRB", "El documento contiene campos")
-                }
-            }
-            .addOnFailureListener { exception ->
-                //Probably the document doesn't exist
-                exist = false
-                Log.d("JRB", "Error al obtener el documento: ${exception.message}")
-            }
-        return exist
-    }*/
 
     private fun giveId(): String {
-        val collectionRef = db.collection("test") // Fake collection in order to take a unique id
-        val documentRef = collectionRef.document()
-        return  documentRef.id
-    }
-
-
-    /*private fun toggleRecording() {
-        if (::mediaRecorder.isInitialized) {
-            stopRecording()
+        val intentId = intent.getStringExtra("id")
+        return if (intentId != null) {
+            // Only if the note exist
+            intentId
         } else {
-            startRecording()
+            // Si no hay un extra "id" en el intent, genera un nuevo ID
+            val collectionRef = db.collection(COLLECTION_NOTES)
+            val documentRef = collectionRef.document()
+            documentRef.id
         }
     }
 
-    private fun startRecording() {
-        outputFile =  File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "audio.3gp")
 
-        mediaRecorder = MediaRecorder().apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-            setOutputFile(outputFile.absolutePath)
-
-            try {
-                prepare()
-                start()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun stopRecording() {
-        mediaRecorder.apply {
-            stop()
-            reset()
-            release()
-        }
-
-        saveAudioToFirebaseStorage()
-        mediaRecorder = MediaRecorder()
-    }
-
-    private fun saveAudioToFirebaseStorage() {
-        val storageRef = FirebaseStorage.getInstance().reference
-        val audioRef = storageRef.child("audios/${outputFile.name}")
-
-        audioRef.putFile(outputFile.toUri())
-            .addOnSuccessListener {
-                Log.d("JRB", "++++++++++++++++++++++++++++++++")
-                outputFile.delete()
-            }
-            .addOnFailureListener {
-                Log.d("JRB", "--------------------------------")
-            }
-    }
-*/
     override fun onDestroy() {
         super.onDestroy()
         saveChanges()
