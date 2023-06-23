@@ -4,6 +4,7 @@
 Paluego is an app made for people who needs to keep an idea and depending the context of the situations they needs to type something or to express themselfs with an audio.
 
 
+
 ## Documentation
 
 Its possible to have docs about the app with the application archives in the root folder, by now the documentation is made in spanish, my mother tongue but the app can be used by english speakers, French-speaking and spanish speakers.
