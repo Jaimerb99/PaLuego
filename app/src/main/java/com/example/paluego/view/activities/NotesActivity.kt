@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import com.example.paluego.R
 import com.example.paluego.model.Constant
+import com.example.paluego.model.Constant.AUDIO
 import com.example.paluego.model.Constant.CONTENT
 import com.example.paluego.model.Constant.DESCRIPTION
 import com.example.paluego.model.Constant.ID
@@ -97,8 +98,9 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
                     val title = document.getString(TITLE)
                     val description = document.getString(CONTENT)
                     val id = document.getString(ID)
+                    val audio = document.getString(AUDIO)
                     if (id != null && title != null && description != null) {
-                        NoteItem(id, title, description)
+                        NoteItem(id, title, description, !audio.isNullOrEmpty())
                     } else {
                         null
                     }
@@ -138,6 +140,7 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
 
     private fun filterNotes(query: String) {
         if(::filteredNotesList.isInitialized) filteredNotesList.clear()
+
 
         if (query.isEmpty()) {
             filteredNotesList.addAll(originalNotesList)

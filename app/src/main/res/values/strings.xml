@@ -63,7 +63,11 @@
     <string name="auth_failed">Something went wrong with the authentication</string>
     <string name="accept">Accept</string>
     <string name="successfully_registered">Successfully registered</string>
-
+    <string name="file_already_exists">The file already exists</string>
+    <string name="recording_started">Recording started</string>
+    <string name="no_recording_in_progress">No recording in progress</string>
+    <string name="record_stopped">Record stopped</string>
+    <string name="permission_denied">Permission denied</string>
 
 
 </resources>

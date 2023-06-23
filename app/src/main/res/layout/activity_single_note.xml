@@ -125,7 +125,7 @@
             android:id="@+id/voiceRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="monospace"
             android:text="@string/voice_record"
             app:layout_constraintStart_toStartOf="@+id/descriptionCaption"
@@ -149,7 +149,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineRightR"
             app:layout_constraintStart_toStartOf="@+id/guidelineMiddle"
             app:layout_constraintTop_toBottomOf="@+id/voiceRecord"
-            app:srcCompat="@drawable/ic_play_button_24" />
+            app:srcCompat="@drawable/ic_gray_play_button_24" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineMiddle"

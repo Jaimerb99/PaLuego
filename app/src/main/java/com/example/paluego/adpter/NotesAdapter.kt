@@ -24,6 +24,7 @@ class NotesAdapter(private var notesList: MutableList<NoteItem>, private val ite
             titleTextView.text = note.title
             descriptionTextView.text = note.description
 
+
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(note)
             }

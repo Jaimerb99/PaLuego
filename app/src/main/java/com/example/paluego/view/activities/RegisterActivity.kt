@@ -14,7 +14,7 @@ import com.example.paluego.databinding.ActivityRegisterBinding
 import com.example.paluego.model.AppPreferences
 import com.example.paluego.model.Constant.BIRTH_DATE
 import com.example.paluego.model.Constant.COLLECTION_USER
-import com.example.paluego.model.Constant.EMAIL
+import com.example.paluego.model.Constant.EMAIL_KEY
 import com.example.paluego.model.Constant.NAME
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
@@ -92,7 +92,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun saveUserOnFirebase() {
         db.collection(COLLECTION_USER).document(binding.editTextTextEmailAddress.text.toString()).set(
             hashMapOf(NAME to binding.editTextTextPersonName.text.toString(),
-                EMAIL to binding.editTextTextEmailAddress.text.toString(),
+                EMAIL_KEY to binding.editTextTextEmailAddress.text.toString(),
                 BIRTH_DATE to binding.editTextDate.text.toString()
             )
         )

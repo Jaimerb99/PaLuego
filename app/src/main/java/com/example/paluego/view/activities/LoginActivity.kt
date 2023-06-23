@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.example.paluego.R
 import com.example.paluego.databinding.ActivityLoginBinding
 import com.example.paluego.model.AppPreferences
-import com.example.paluego.model.Constant.EMAIL
+import com.example.paluego.model.Constant.EMAIL_KEY
 import com.example.paluego.model.Constant.ID
 import com.google.firebase.auth.FirebaseAuth
 
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("JRB", "signInWithEmail:success")
                     val user = auth.currentUser
                     AppPreferences.setString(baseContext, ID, user!!.uid)
-                    AppPreferences.setString(baseContext, EMAIL, binding.editTextTextPersonNameL.text.toString())
+                    AppPreferences.setString(baseContext, EMAIL_KEY, binding.editTextTextPersonNameL.text.toString())
                     startActivity(Intent(this@LoginActivity, NotesActivity::class.java))
                     finish()
                 } else {

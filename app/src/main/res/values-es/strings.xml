@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">PaLuego</string>
     <string name="new_account_text">Crear nueva cuenta</string>
     <string name="birth_date">FECHA DE NACIMIENTO</string>
     <string name="password">CONTRASEÑA</string>
     <string name="email">CORREO ELECTRÓNICO</string>
     <string name="name">NOMBRE</string>
-    <string name="no_visible_field" translatable="false">********</string>
     <string name="select">Seleccionar</string>
-    <string name="mail_example" translatable="false">correo@ejemplo.com</string>
     <string name="name_lcase">Nombre</string>
     <string name="sign_up">Registrarse</string>
     <string name="login">Iniciar sesión</string>
@@ -63,6 +60,11 @@
     <string name="auth_failed">Hubo un problema con la autenticación</string>
     <string name="accept">Aceptar</string>
     <string name="successfully_registered">Registrado exitosamente</string>
+    <string name="file_already_exists">El archivo ya existe</string>
+    <string name="recording_started">Grabación iniciada</string>
+    <string name="no_recording_in_progress">No hay grabación en curso</string>
+    <string name="record_stopped">Grabación detenida</string>
+    <string name="permission_denied">Permiso denegado</string>
 
 
 </resources>

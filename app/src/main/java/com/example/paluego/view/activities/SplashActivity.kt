@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.paluego.R
 import com.example.paluego.model.AppPreferences
+import com.example.paluego.model.Constant.ID
+import com.example.paluego.model.Constant.SPLASH_SLEEPING_TIME
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
@@ -22,12 +24,12 @@ class SplashActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             withContext(Dispatchers.IO) {
-                Thread.sleep(3000)
+                Thread.sleep(SPLASH_SLEEPING_TIME)
 
                 //Only for testing (removes preferences and disable autologin)
                 //AppPreferences.clearAllPreferences(this@SplashActivity)
 
-                val userId = AppPreferences.getString(baseContext,"id", "")
+                val userId = AppPreferences.getString(baseContext, ID, "")
 
                 //Autologin
                 if(AppPreferences.hasPreferences(baseContext) && userId == auth.currentUser!!.uid){

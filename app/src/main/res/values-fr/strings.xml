@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="new_account_text">Créer un nouveau compte</string>
+    <string name="birth_date">DATE DE NAISSANCE</string>
+    <string name="password">MOT DE PASSE</string>
+    <string name="email">ADRESSE E-MAIL</string>
+    <string name="name">NOM</string>
+    <string name="select">Sélectionner</string>
+    <string name="name_lcase">Nom</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="login">Se connecter</string>
+    <string name="name_textfield">Entrez votre nom</string>
+    <string name="mail_textfield">Entrez votre adresse e-mail</string>
+    <string name="log_in">Se connecter</string>
+    <string name="clear">Effacer</string>
+    <string name="notes">Notes</string>
+    <string name="to_be_written">À écrire...</string>
+    <string name="content">Contenu</string>
+    <string name="voice_record">Enregistrement vocal</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="sync_header">Synchronisation</string>
+    <string name="synchronize_automatically">Synchroniser automatiquement</string>
+    <string name="notes_settings">Paramètres des notes</string>
+    <string name="default_font_size">Taille de police par défaut</string>
+    <string name="notifications">Notifications</string>
+    <string name="disable_volume">Désactiver le volume</string>
+    <string name="muted">Silencieux</string>
+    <string name="volume_on">Volume activé</string>
+    <string name="volume">Volume</string>
+    <string name="mute_notifications">Vous ne recevrez plus de notifications</string>
+    <string name="unmute_notifications">Vous pouvez recevoir des notifications</string>
+    <string name="allow_notifications">Autoriser les notifications</string>
+    <string name="small">Petit</string>
+    <string name="medium">Moyen</string>
+    <string name="large">Grand</string>
+    <string name="settings">Paramètres</string>
+    <string name="sing_in_to_continue">Connectez-vous pour continuer</string>
+    <string name="search">Rechercher</string>
+    <string name="title">Titre</string>
+
+
+    <string name="exit">Quitter</string>
+    <string name="are_you_sure_you_want_to_exit">Êtes-vous sûr de vouloir quitter ?</string>
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
+    <string name="you_clicked_no">Vous avez cliqué sur Non</string>
+    <string name="note_deleted">Note supprimée</string>
+    <string name="failed_to_delete_note">Impossible de supprimer la note</string>
+    <string name="press_back_again_to_exit_the_app">Appuyez à nouveau sur Retour pour quitter l\'application</string>
+    <string name="required_name">Veuillez fournir votre nom</string>
+    <string name="needed_password">Un mot de passe est requis pour continuer</string>
+    <string name="authentication_fail">Échec de l\'authentification.</string>
+    <string name="name_needed">Veuillez fournir votre nom</string>
+    <string name="password_needed">Un mot de passe est requis pour continuer</string>
+    <string name="minimum_chars">Le mot de passe doit comporter au moins 6 caractères</string>
+    <string name="account_already_exists">Cette adresse e-mail a déjà un compte créé</string>
+    <string name="error">Erreur</string>
+    <string name="auth_failed">Un problème est survenu lors de l\'authentification</string>
+    <string name="accept">Accepter</string>
+    <string name="successfully_registered">Inscription réussie</string>
+    <string name="file_already_exists">Le fichier existe déjà</string>
+    <string name="recording_started">Enregistrement démarré</string>
+    <string name="no_recording_in_progress">Aucun enregistrement en cours</string>
+    <string name="record_stopped">Enregistrement arrêté</string>
+    <string name="permission_denied">Autorisation refusée</string>
+</resources>
