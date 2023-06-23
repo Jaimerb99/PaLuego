@@ -114,7 +114,7 @@
                 android:layout_weight="1"
                 android:theme="@style/SearchViewStyle"
                 app:iconifiedByDefault="false"
-                app:queryHint="Search"
+                app:queryHint="@string/search"
                 app:searchIcon="@drawable/ic_search_24" />
 
         </LinearLayout>

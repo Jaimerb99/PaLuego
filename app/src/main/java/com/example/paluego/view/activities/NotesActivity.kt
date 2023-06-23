@@ -22,6 +22,12 @@ import com.example.paluego.model.NoteItem
 import com.example.paluego.model.SwipeToDeleteCallback
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import com.example.paluego.R
+import com.example.paluego.model.Constant
+import com.example.paluego.model.Constant.CONTENT
+import com.example.paluego.model.Constant.DESCRIPTION
+import com.example.paluego.model.Constant.ID
+import com.example.paluego.model.Constant.TITLE
 
 class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
 
@@ -63,34 +69,34 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
                 return true
             }
         })
-
-
-
-
         setupRecyclerView()
-
-
     }
 
     override fun onResume() {
         super.onResume()
+        //Limpiamos el searchView colapsándolo y expandiéndolo, pierde el foco con el tercer método
+        with(binding.searchView){
+            isIconified = true
+            isIconified = false
+            clearFocus()
+        }
         setupRecyclerView()
     }
 
 
     private fun setupRecyclerView() {
-        val userEmail = AppPreferences.getString(this, "email", "")
+        val userEmail = AppPreferences.getString(this, Constant.EMAIL_KEY, "")
 
         db = FirebaseFirestore.getInstance() // Declarar la variable db en la clase
 
         db.collection(COLLECTION_NOTES)
-            .whereEqualTo("user", userEmail)
+            .whereEqualTo(COLLECTION_USER, userEmail)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 val notesList = querySnapshot.documents.mapNotNull { document ->
-                    val title = document.getString("title")
-                    val description = document.getString("content")
-                    val id = document.getString("id")
+                    val title = document.getString(TITLE)
+                    val description = document.getString(CONTENT)
+                    val id = document.getString(ID)
                     if (id != null && title != null && description != null) {
                         NoteItem(id, title, description)
                     } else {
@@ -112,13 +118,13 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
                         .document(noteId)
                         .delete()
                         .addOnSuccessListener {
-                            Toast.makeText(this@NotesActivity, "Note deleted", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@NotesActivity, getString(R.string.note_deleted), Toast.LENGTH_SHORT).show()
                             notesAdapter.removeItem(position)
                             setupRecyclerView()
                         }
                         .addOnFailureListener { exception ->
                             Log.d("JRB", "Error deleting note: ${exception.message}")
-                            Toast.makeText(this@NotesActivity, "Failed to delete note", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@NotesActivity, getString(R.string.failed_to_delete_note), Toast.LENGTH_SHORT).show()
                         }
                 }
 
@@ -131,7 +137,7 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
     }
 
     private fun filterNotes(query: String) {
-        filteredNotesList.clear()
+        if(::filteredNotesList.isInitialized) filteredNotesList.clear()
 
         if (query.isEmpty()) {
             filteredNotesList.addAll(originalNotesList)
@@ -152,15 +158,15 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
 
     private fun showExitConfirmationDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Exit")
-        builder.setMessage("Are you sure you want to exit?")
-        builder.setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+        builder.setTitle(getString(R.string.exit))
+        builder.setMessage(getString(R.string.are_you_sure_you_want_to_exit))
+        builder.setPositiveButton(getString(R.string.yes)) { dialogInterface: DialogInterface, i: Int ->
             AppPreferences.clearAllPreferences(this)
             finish()
             startActivity(Intent(this@NotesActivity, LoginActivity::class.java))
         }
-        builder.setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
-            Toast.makeText(this, "You clicked No", Toast.LENGTH_SHORT).show()
+        builder.setNegativeButton(getString(R.string.no)) { dialogInterface: DialogInterface, i: Int ->
+            Toast.makeText(this, getString(R.string.you_clicked_no), Toast.LENGTH_SHORT).show()
         }
         builder.setCancelable(false)
         builder.show()
@@ -171,7 +177,7 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
             finish()
         } else {
             backPressedOnce = true
-            Toast.makeText(this, "Press back again to exit the app", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.press_back_again_to_exit_the_app), Toast.LENGTH_SHORT).show()
 
             // Reset backPressedOnce after a delay
             Handler().postDelayed({ backPressedOnce = false }, 2000)
@@ -180,9 +186,9 @@ class NotesActivity : AppCompatActivity(), NotesAdapter.ItemClickListener {
 
     override fun onItemClick(note: NoteItem) {
         val intento = Intent(this@NotesActivity, SingleNoteActivity::class.java)
-        intento.putExtra("id", note.id)
-        intento.putExtra("title", note.title)
-        intento.putExtra("description", note.description)
+        intento.putExtra(ID, note.id)
+        intento.putExtra(TITLE, note.title)
+        intento.putExtra(DESCRIPTION, note.description)
         startActivity(intento)
     }
 

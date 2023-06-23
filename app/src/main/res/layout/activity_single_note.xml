@@ -35,7 +35,7 @@
             android:textSize="35sp"
             android:textColor="@color/white"
             android:paddingStart="20dp"
-            android:hint="Title"
+            android:hint="@string/title"
             android:background= "@color/transparent"
             tools:text="Note title"
             android:maxLines="2"

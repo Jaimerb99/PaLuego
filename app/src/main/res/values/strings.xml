@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">PaLuego</string>
+    <string name="app_name" translatable="false">PaLuego</string>
     <string name="new_account_text">Create new account</string>
     <string name="birth_date">DATE OF BIRTH</string>
     <string name="password">PASSWORD</string>
     <string name="email">EMAIL</string>
     <string name="name">NAME</string>
-    <string name="no_visible_field">********</string>
+    <string name="no_visible_field" translatable="false">********</string>
     <string name="select">Select</string>
-    <string name="mail_example">mail@mail.com</string>
+    <string name="mail_example" translatable="false">mail@mail.com</string>
     <string name="name_lcase">Name</string>
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
@@ -38,6 +38,31 @@
     <string name="small">Small</string>
     <string name="medium">Medium</string>
     <string name="large">Large</string>
+    <string name="settings">Settings</string>
+    <string name="sing_in_to_continue">Sing in to continue</string>
+    <string name="search">Search</string>
+    <string name="title">Title</string>
+
+
+    <string name="exit">Exit</string>
+    <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="you_clicked_no">You clicked No</string>
+    <string name="note_deleted">Note deleted</string>
+    <string name="failed_to_delete_note">Failed to delete note</string>
+    <string name="press_back_again_to_exit_the_app">Press back again to exit the app</string>
+    <string name="required_name">You must provide your name</string>
+    <string name="needed_password">The password is needed to continue</string>
+    <string name="authentication_fail">Authentication failed.</string>
+    <string name="name_needed">You must provide your name</string>
+    <string name="password_needed">The password is needed to continue</string>
+    <string name="minimum_chars">Password must have at least 6 characters</string>
+    <string name="account_already_exists">This mail has already an account created</string>
+    <string name="error">Error</string>
+    <string name="auth_failed">Something went wrong with the authentication</string>
+    <string name="accept">Accept</string>
+    <string name="successfully_registered">Successfully registered</string>
 
 
 

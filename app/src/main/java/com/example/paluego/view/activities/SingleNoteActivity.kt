@@ -17,7 +17,10 @@ import com.example.paluego.databinding.ActivitySingleNoteBinding
 import com.example.paluego.model.AppPreferences
 import com.example.paluego.model.Constant
 import com.example.paluego.model.Constant.COLLECTION_NOTES
+import com.example.paluego.model.Constant.DESCRIPTION
+import com.example.paluego.model.Constant.ID
 import com.example.paluego.model.Constant.REQUEST_PERMISSION_RECORD_AUDIO
+import com.example.paluego.model.Constant.TITLE
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
@@ -36,7 +39,7 @@ class SingleNoteActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var noteId: String
 
-    private lateinit var mediaRecorder: MediaRecorder
+
     private lateinit var audioFileRef: StorageReference
     private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
     private val REQUEST_RECORD_AUDIO_PERMISSION = 200
@@ -48,19 +51,17 @@ class SingleNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.editTextNoteTitle.setText(intent.getStringExtra("title") ?: "")
-        binding.editTextNoteContent.setText(intent.getStringExtra("description") ?: "")
+        binding.editTextNoteTitle.setText(intent.getStringExtra(TITLE) ?: "")
+        binding.editTextNoteContent.setText(intent.getStringExtra(DESCRIPTION) ?: "")
 
         binding.btnRecord.setOnClickListener {
-            binding.btnRecord.setOnClickListener {
-                if (isRecording) {
-                    stopRecording()
-                    isRecording = false
-                    saveChanges()
-                } else {
-                    checkRecordAudioPermission()
-                    isRecording = true
-                }
+            if (isRecording) {
+                stopRecording()
+                isRecording = false
+                saveChanges()
+            } else {
+                checkRecordAudioPermission()
+                isRecording = true
             }
         }
 
@@ -80,8 +81,11 @@ class SingleNoteActivity : AppCompatActivity() {
         getAudioDownloadUrl()
     }
 
+
     override fun onResume() {
         super.onResume()
+        binding.editTextNoteTitle.clearFocus()
+        binding.editTextNoteContent.clearFocus()
         // Inits the count again
         handler.postDelayed(autoSaveRunnable, Constant.AUTOSAVE_INTERVAL)
         saveChanges()
@@ -98,7 +102,7 @@ class SingleNoteActivity : AppCompatActivity() {
         val title = binding.editTextNoteTitle.text.toString()
         val content = binding.editTextNoteContent.text.toString()
 
-        // Obtén la referencia de almacenamiento de Firebase
+        // Firebase storage reference
         val storageReference = FirebaseStorage.getInstance().reference
 
         // Verifica si hay un archivo de audio para guardar
@@ -106,10 +110,9 @@ class SingleNoteActivity : AppCompatActivity() {
             // Obtén la referencia del archivo de audio en Firestore
             val audioRef = storageReference.child("audio/$noteId.mp3")
 
-            // Sube el archivo de audio a Firestore
+            // uploads the file
             audioRef.putFile(outputFile!!.toUri())
                 .addOnSuccessListener {
-                    // El archivo de audio se ha guardado exitosamente en Firestore
                     Log.d("Firestore", "Archivo de audio guardado exitosamente")
 
                     // Crea un mapa con los datos de la nota, incluyendo el enlace del archivo de audio
@@ -118,7 +121,7 @@ class SingleNoteActivity : AppCompatActivity() {
                         "id" to noteId,
                         "title" to title,
                         "content" to content,
-                        "audio" to audioRef.toString()
+                        //"audio" to audioRef.toString()
                     )
 
                     // Actualiza los datos de la nota en Firestore
@@ -144,7 +147,7 @@ class SingleNoteActivity : AppCompatActivity() {
                 "id" to noteId,
                 "title" to title,
                 "content" to content,
-                "audio" to null // o "" si prefieres una cadena vacía en lugar de nulo
+                "audio" to null
             )
 
             // Actualiza los datos de la nota en Firestore
@@ -238,7 +241,7 @@ class SingleNoteActivity : AppCompatActivity() {
 
 
     private fun giveId(): String {
-        val intentId = intent.getStringExtra("id")
+        val intentId = intent.getStringExtra(ID)
         return if (intentId != null) {
             // Only if the note exist
             intentId
@@ -254,9 +257,6 @@ class SingleNoteActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         saveChanges()
-        if (::mediaRecorder.isInitialized) {
-            mediaRecorder.release()
-        }
     }
 
 

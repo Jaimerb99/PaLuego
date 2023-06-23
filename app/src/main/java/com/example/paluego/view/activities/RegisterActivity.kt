@@ -9,9 +9,13 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.paluego.R
 import com.example.paluego.databinding.ActivityRegisterBinding
 import com.example.paluego.model.AppPreferences
+import com.example.paluego.model.Constant.BIRTH_DATE
 import com.example.paluego.model.Constant.COLLECTION_USER
+import com.example.paluego.model.Constant.EMAIL
+import com.example.paluego.model.Constant.NAME
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -36,9 +40,8 @@ class RegisterActivity : AppCompatActivity() {
             if( binding.editTextTextPersonName.text.toString().trim().isNotEmpty() && binding.editTextTextPersonName.text.toString().trim().isNotEmpty()){
                 createUser()
             }else{
-                //TODO to be revised, password textfield doesnt work as a normal textfield
-                if(binding.editTextTextPersonName.text.toString().isEmpty()) binding.editTextTextPersonName.error = "You must provide your name"
-                if(binding.editTextTextPassword.text.toString().isNullOrEmpty()) binding.editTextTextPassword.error = "The password is needed to continue"
+                if(binding.editTextTextPersonName.text.toString().isEmpty()) binding.editTextTextPersonName.error = getString(R.string.name_needed)
+                if(binding.editTextTextPassword.text.toString().isNullOrEmpty()) binding.editTextTextPassword.error = getString(R.string.password_needed)
             }
         }
 
@@ -56,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(binding.editTextTextEmailAddress.text.toString(), binding.editTextTextPassword.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Successfully registered", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.successfully_registered), Toast.LENGTH_SHORT).show()
                     AppPreferences.setString(baseContext, "id", auth.uid!!)
                     saveUserOnFirebase()
                     finish()
@@ -65,10 +68,10 @@ class RegisterActivity : AppCompatActivity() {
                     if (task.exception is FirebaseAuthException) {
                         when ((task.exception as FirebaseAuthException).errorCode) {
                             "ERROR_WEAK_PASSWORD" -> {
-                                binding.editTextTextPassword.error = "Password must have at least 6 characters"
+                                binding.editTextTextPassword.error = getString(R.string.minimum_chars)
                             }
                             "ERROR_EMAIL_ALREADY_IN_USE" -> {
-                                binding.editTextTextEmailAddress.error = "This mail has already an account created"
+                                binding.editTextTextEmailAddress.error = getString(R.string.account_already_exists)
                             }
                             else -> {
                                 showAlert()
@@ -88,18 +91,18 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun saveUserOnFirebase() {
         db.collection(COLLECTION_USER).document(binding.editTextTextEmailAddress.text.toString()).set(
-            hashMapOf("name" to binding.editTextTextPersonName.text.toString(),
-                "email" to binding.editTextTextEmailAddress.text.toString(),
-                "birth_date" to binding.editTextDate.text.toString()
+            hashMapOf(NAME to binding.editTextTextPersonName.text.toString(),
+                EMAIL to binding.editTextTextEmailAddress.text.toString(),
+                BIRTH_DATE to binding.editTextDate.text.toString()
             )
         )
     }
 
     private fun showAlert() {
         AlertDialog.Builder(this)
-            .setTitle("Error")
-            .setMessage("Something went wrong with the authentication")
-            .setPositiveButton("Accept", null)
+            .setTitle(getString(R.string.error))
+            .setMessage(getString(R.string.auth_failed))
+            .setPositiveButton(getString(R.string.accept), null)
             .show()
     }
 
