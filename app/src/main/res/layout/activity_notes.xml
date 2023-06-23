@@ -114,22 +114,13 @@
                 android:layout_weight="1"
                 android:theme="@style/SearchViewStyle"
                 app:iconifiedByDefault="false"
-                app:queryHint="Search"
+                app:queryHint="@string/search"
                 app:searchIcon="@drawable/ic_search_24" />
-
-            <ImageView
-                android:id="@+id/clearButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/clear"
-                android:paddingEnd="10dp"
-                android:src="@drawable/ic_rounded_clear_24"
-                android:visibility="visible"
-                app:layout_constraintDimensionRatio="1:1" />
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewNotes"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="30dp"

@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Sing in to continue"
+            android:text="@string/sing_in_to_continue"
             android:textSize="11sp"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRightInnerL"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeftInnerL"
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittexts_background"
             android:ems="10"
-            android:hint="@string/name_textfield"
+            android:hint="@string/mail_textfield"
             tools:text = "Aitor Tilla"
             android:inputType="textPersonName"
             android:paddingVertical="10dp"
@@ -131,8 +131,8 @@
             android:id="@+id/nameCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name"
             android:fontFamily="monospace"
+            android:text="@string/email"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonNameL"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonNameL"
             app:layout_constraintHorizontal_bias="0.02"
@@ -192,6 +192,19 @@
             app:layout_constraintStart_toStartOf="@+id/btnLogIn"
             app:layout_constraintTop_toBottomOf="@+id/btnLogIn"
             app:layout_constraintVertical_bias="0.4" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightInnerL"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeftInnerL"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@
     android:layout_marginVertical="5dp">
 
     <TextView
-        android:id="@+id/doubtQuestions"
+        android:id="@+id/itemNoteTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nameAlumno"
+        android:id="@+id/itemNotDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"

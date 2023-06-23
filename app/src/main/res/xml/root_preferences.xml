@@ -3,7 +3,7 @@
 
     <PreferenceCategory>
         <EditTextPreference
-            app:title="Settings"
+            app:title="@string/settings"
             android:selectable="false"
             android:layout="@layout/setting_title_edittext"
             />
